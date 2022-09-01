@@ -1,0 +1,18 @@
+class Solution {
+    public long solution(long n) {
+        
+        char[] arr = String.valueOf(n).toCharArray();
+        int num = 0;
+        for(int i = 0; i < arr.length; i++) { 
+            for (int j = i; j < arr.length; j++) {
+                if(arr[i] < arr[j]) {
+                    num = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = (char)num;
+                }
+            }
+        }
+        
+        return Long.parseLong(String.valueOf(arr));
+    }
+}
