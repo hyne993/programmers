@@ -1,0 +1,19 @@
+import java.util.*;
+class Solution {
+    public int solution(int[] nums) {
+        
+        HashSet<Integer> hset = new HashSet<>();
+        
+        for(int num : nums) {
+            hset.add(num);
+        }
+        
+        int n = nums.length / 2;
+        
+        if(hset.size() > n) {
+            return n;
+        } else {
+            return hset.size();
+        }
+    }
+}
