@@ -1,0 +1,58 @@
+import java.util.*;
+
+class Solution {
+
+    public int[] solution(int N, int[] stages) {
+
+        int[] answer = new int[N];
+
+        double[] stage = new double[N + 1];      // 스테이지에 도달했으나 클리어하지 못한 플레이어 수를 담을 배열
+
+        // 인덱스값이 스테이지번호
+        for(int i : stages) {
+            if(i == N + 1) { // 전부 클리어
+                continue;
+            }
+            stage[i]++;
+        }
+
+        // 실패율을 담을 리스트
+        ArrayList<Double> fail = new ArrayList<>();
+        
+        double num = stages.length; // 스테이지에 도달한 플레이어수 (전체 플레이어에서 시작)
+        double tmp = 0; // 스테이지 클리어 못한 플레이어수를 담는 임시변수 
+
+        //실패율을 구한 후 stage 배열에 담고, fail 리스트에도 담기.
+        for(int i = 1; i < stage.length; i++){
+
+            tmp = stage[i];
+            if(num == 0){ // 도달한 플레이어 수가 0 이면 실패율도 0
+                
+	            stage[i] = 0;
+            } else{
+
+                stage[i] = stage[i] / num; // 실패율 = 스테이지에 도달했으나 아직 클리어하지 못한 플레이어의 수 / 스테이지에 도달한 플레이어 수
+                num = num - tmp;  // i번째 스테이지를 클리어 못한 플레이어를 빼주기
+            }
+
+            fail.add(stage[i]);
+      }
+
+     //  fail 리스트 내림차순 정렬
+     Collections.sort(fail,Collections.reverseOrder());
+
+     //정렬된 fail리스트 값과 stage값을 비교해서 같으면 stage의 인덱스번호(스테이지번호)를 가져오기
+     for(int i = 0; i < fail.size(); i++) {
+         for(int j = 1; j < stage.length; j++) {
+             if(fail.get(i) == stage[j]) {
+
+                 answer[i] = j;
+                 stage[j] = -1; // 이후에, 중복 불가능하도록 -1 로 설정
+                 break;
+            }
+        }
+    }
+
+    return answer;
+    }
+}
