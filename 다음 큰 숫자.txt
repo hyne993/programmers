@@ -1,0 +1,29 @@
+class Solution {
+    public int solution(int n) {
+        
+        int curCnt = toBinary(n);
+		
+		while(true) {
+			int nextCnt = toBinary(++n);
+			if(curCnt == nextCnt) { 
+                break; 
+            }
+		}
+
+        return n;
+    }
+    
+    //2진수로 변환했을 때 1의 개수
+	private static int toBinary(int n) {
+		int one = 1;
+		
+		while(n > 1) {
+			if(n % 2 == 1) {
+				one++;
+			}
+			n /= 2;
+		}
+		
+		return one;
+	}
+}
