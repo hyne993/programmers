@@ -1,0 +1,24 @@
+class Solution {
+    public int solution(int [][]board) {
+        
+        int[][] map = new int[board.length+1][board[0].length+1];
+        for(int i = 0; i < board.length; i++) { 
+            for(int j = 0; j < board[0].length; j++) {
+                map[i+1][j+1] = board[i][j];
+            }
+        }
+        
+        int ans = 0;
+        for(int i = 1; i <= board.length; i++) { 
+            for(int j = 1; j <= board[0].length; j++) {
+                if(map[i][j] != 0) {
+                    int min = Math.min(Math.min(map[i-1][j], map[i-1][j-1]), map[i][j-1]);
+                    map[i][j] = min+1;
+                    ans = Math.max(map[i][j], ans); 
+                }
+            }
+        }
+    
+        return ans * ans;
+    }
+}
